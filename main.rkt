@@ -16,3 +16,7 @@
              [callback (lambda (button event)
                          (send msg set-label "确认"))])
 (send frame show #t)
+#|
+长注释
+|#
+;;短注释
