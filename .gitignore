@@ -2,7 +2,7 @@
 *.ss~
 *.ss#*
 .#*.ss
-
+*.pyc
 *.scm~
 *.scm#*
 .#*.scm
