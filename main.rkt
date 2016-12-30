@@ -1,22 +1,24 @@
 #lang racket
-(or #true #true)
-(and #true #false)
-(define (sign x)
-  (cond
-    [(> x 0) 1]
-    [(= x 0) 0]
-    [(< x 0) -1]))
-(string-append "what" "a" "fuck" "day")
- (require racket/gui/base)
-(define frame (new frame% [label "nap.im"]))
-(define msg (new message% [parent frame]
-                          [label "正在开发测试中"]))
-(new button% [parent frame]
-             [label "确认"]
-             [callback (lambda (button event)
-                         (send msg set-label "确认"))])
-(send frame show #t)
-#|
-长注释
-|#
-;;短注释
+(define (serve port-no)
+  (define listener (tcp-listen port-no 5 #t))
+  (define (loop)
+    (accept-and-handle listener)
+    (loop))
+  )
+
+(define (accept-and-handle listener)
+  (define-values (in out) (tcp-accept listener))
+  (handle in out)
+  (close-input-port in)
+  (close-output-port out)
+  )
+
+(define (handle in out)
+  ; Discard the request header (up to blank line):
+  (regexp-match #rx"(\r\n|^)\r\n" in)
+  ; Send reply:
+  (display "HTTP/1.0 200 Okay\r\n" out)
+  (display "Server: k\r\nContent-Type: text/html\r\n\r\n" out)
+  (display "<html><body>Hello, world!</body></html>" out))
+
+(serve 8080)
