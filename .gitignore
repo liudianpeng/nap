@@ -1,8 +1,11 @@
+readme.osc
 *~
 *.ss~
 *.ss#*
 .#*.ss
-
+*.pyc
 *.scm~
 *.scm#*
 .#*.scm
+.data
+.build
