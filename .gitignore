@@ -9,4 +9,3 @@ readme.osc
 .#*.scm
 .data
 .build
-*.smk
